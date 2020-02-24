@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Towers of Hanoi Math game</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+    
+        <link rel="stylesheet" type="text/css" href="hanoitower.css" >
+        <script type="text/javascript" src="hanoitower.js"></script>
+    </head>
+    <body>
+        <div id="sitepanel">
+            <h1>Towers of Hanoi</h1>
+            <div id="gamepanel">
+                <div class="stick col-1">
+                </div>
+                <div class="stick col-2">
+                </div>
+                <div class="stick col-3">
+                </div>
+            </div>
+        </div>
+        <script>
+            (function(){
+                const war = 15;
+                generateDiscs(war);
+                solveHanoi(war, 1, 2, 3);
+            })();
+        </script>
+    </body>
+</html>
