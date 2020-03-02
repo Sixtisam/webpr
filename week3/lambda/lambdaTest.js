@@ -4,46 +4,56 @@
 let ok = [];
 
 // id
-// ok.push( id(1) === 1 );
-// ok.push( id(id) === id );
+ok.push( id(1) === 1 );
+ok.push( id(id) === id );
 //
 // // konst
-// ok.push( konst(42)(0) === 42 );
-// ok.push( konst(42)(1) === 42 );
-// ok.push( konst(42)(null) === 42 );
+ok.push( konst(42)(0) === 42 );
+ok.push( konst(42)(1) === 42 );
+ok.push( konst(42)(null) === 42 );
 //
 // // kite
-// ok.push( snd(null)(42) === 42 );
+ok.push( snd(null)(42) === 42 );
 //
 // // true
 //
-// ok.push( T(1)(0) === 1 );
-// ok.push( F(1)(0) === 0 );
+ok.push( T(1)(0) === 1 );
+ok.push( F(1)(0) === 0 );
 //
 // // and
-// ok.push( and(F)(F) === F );
-// ok.push( and(T)(F) === F );
-// ok.push( and(F)(T) === F );
-// ok.push( and(T)(T) === T );
+ok.push( and(F)(F) === F );
+ok.push( and(T)(F) === F );
+ok.push( and(F)(T) === F );
+ok.push( and(T)(T) === T );
 //
 // // or
-// ok.push( or(F)(F) === F );
-// ok.push( or(T)(F) === T );
-// ok.push( or(F)(T) === T );
-// ok.push( or(T)(T) === T );
+ok.push( or(F)(F) === F );
+ok.push( or(T)(F) === T );
+ok.push( or(F)(T) === T );
+ok.push( or(T)(T) === T );
 //
 // // flip
-// // flip(f)(x)(y) = f(y)(x)
+(() => {
+    const f = x => y => (x-y);
+    const x = Math.random();
+    const y = Math.random();
+    ok.push(flip(f)(x)(y) === f(y)(x));
+})();
 //
 // // not
-//
+ok.push(not(F) === T);
+ok.push(not(T) === F);
 // // beq
-//
+
+ok.push(beq(T)(T) == T);
+ok.push(beq(T)(F) == F);
+ok.push(beq(F)(T) == F);
+ok.push(beq(F)(F) == T);
 // // Pair
 //
-// const dierk = Pair("Dierk")("König"); // immutable
-// ok.push( dierk(firstname) === "Dierk");
-// ok.push( dierk(lastname)  === "König");
+const dierk = Pair("Dierk")("König"); // immutable
+ok.push( dierk(firstname) === "Dierk");
+ok.push( dierk(lastname)  === "König");
 //
 // const tdierk = Triple("Dierk")("König")(50); // immutable
 // ok.push( tdierk(tfirstname) === "Dierk");
@@ -68,14 +78,21 @@ let ok = [];
 //
 // // either
 //
-// const safeDiv = num => divisor =>
-//     divisor === 0
-//     ? Left("schlecht!")
-//     : Right(num / divisor);
+const safeDiv = num => divisor =>
+    divisor === 0
+    ? Left("schlecht!")
+    : Right(num / divisor);
 //
-// either( safeDiv(1)(0)  )
-//       (console.error)
-//       (console.log);
+either( safeDiv(1)(0)  )
+      (console.error)
+      (console.log);
+
+ok.push(either(safeDiv(1)(0))(() => true)(() => false));
+ok.push(either(safeDiv(1)(1))(() => false)(() => true));
+ok.push(either(safeDiv(0)(1))(() => false)(() => true));
+
+console.log('the result is', either(safeDiv(0)(0))(() => false))
+console.log(either(safeDiv(0)(1))(id)(r => ("Result is: " + r)));
 //
 //
 // const [Cash, CreditCard, Invoice, PayPal, pay] = Choice(4);

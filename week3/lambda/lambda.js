@@ -1,5 +1,43 @@
 
+const id = x => x;
+// first argument
+const fst = x => y => x; 
 
+// second argument
+const kite = fst(id)
+
+// self-application of functions
+const mockingbird = f => f(f);
+
+const F = kite;
+const T = fst;
+
+const and = p => q  => p(q)(p);
+
+// const or = p => p(p);
+const or = mockingbird;
+
+const not = x => x(F)(T);
+
+const beq = p => q => p(q)(not(q))
+
+const flip = f => a => b => f(b)(a);
+
+const snd = kite;
+const konst = fst;
+
+// endless loop
+// const Y = mockingbird(mockingbird);
+
+
+const Pair = first => second => f => f(first)(second);
+const firstname = fst;
+const lastname = snd;
+
+const either = id;
+
+const Left = value => f => g => f(value);
+const Right = value => f => g => g(value);
 
 // ----- special -----
 
