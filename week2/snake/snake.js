@@ -9,20 +9,30 @@ let direction = north;
 const clockwise = [north, east, south, west, north];
 const countercw = [north, west, south, east, north];
 
+const CANVAS_WIDTH = 1200;
+const CANVAS_HEIGHT = 800;
+const BLOCK_SIZE = 20;
+const BLOCK_WIDTH = Math.floor(CANVAS_WIDTH / BLOCK_SIZE);
+const BLOCK_HEIGHT = Math.floor(CANVAS_HEIGHT / BLOCK_SIZE);
+
 let snake = [
-    {x: 10, y: 5},
-    {x: 10, y: 6},
-    {x: 10, y: 7},
-    {x: 10, y: 8},
+    {x: 10, y: 4, color: 'red'},
+    {x: 10, y: 5, color: 'green'},
+    {x: 10, y: 6, color: 'blue'},
+    {x: 10, y: 7, color: 'red'},
+    {x: 10, y: 8, color: 'red'},
+    {x: 10, y: 9, color: 'red'},
+    {x: 10, y: 10, color: 'red'},
 ];
 let food = {x: 15, y: 15};
 
-function snakeEquals(a, b) { 
-	/* fill here */
-}
+let gameLoop;
+
+const snakeEquals = (a,b) => a.x === b.x && a.y == b.y;
 
 function changeDirection(orientation) {
-    /* fill here */
+    const idx = orientation.indexOf(direction);
+    direction = orientation[idx + 1];
 }
 
 function start() {
@@ -36,15 +46,14 @@ function start() {
         changeDirection(orientation);
     };
 
-    setInterval(() => {
+    gameLoop = setInterval(() => {
         nextBoard();
         display(context);
     }, 1000 / 5);
 }
 
 function nextBoard() {
-    const maxX = 20;
-    const maxY = 20;
+
     const oldHead = snake[0];
 
     function inBounds(x, max) {
@@ -54,18 +63,29 @@ function nextBoard() {
     }
 
     const head = {
-        x: inBounds(oldHead.x + direction.dx, maxX),
-        y: inBounds(oldHead.y + direction.dy, maxY)
+        x: inBounds(oldHead.x + direction.dx, BLOCK_WIDTH),
+        y: inBounds(oldHead.y + direction.dy, BLOCK_HEIGHT),
+        color: oldHead.color
     };
 
     if (snakeEquals(food, head)) {  // have we found any food?
         food.x = Math.floor(Math.random() * 20);   // place new food at random location
         food.y = Math.floor(Math.random() * 20);
+        snake[snake.length-1].color = "#"+((1<<24)*Math.random()|0).toString(16);
     } else {
         /* fill here */ // no food found => no growth despite new head => remove last element
+        snake.pop();
     }
 
+    if(snake.findIndex(el => snakeEquals(el, head)) !== -1){
+        clearInterval(gameLoop);
+        alert('Game is over, you lost');
+        throw "game over";
+    }
+
+
     /* fill here */; // put head at front of the list
+    snake.unshift(head);
 }
 
 function display(context) {
@@ -85,7 +105,8 @@ function display(context) {
 }
 
 function fillBox(context, element) {
-    context.fillRect(element.x * 20 + 1, element.y * 20 + 1, 18, 18);
+    context.fillStyle = element.color;
+    context.fillRect(element.x * BLOCK_SIZE + 1, element.y * BLOCK_SIZE + 1, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
 }
 
 

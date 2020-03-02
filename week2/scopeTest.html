@@ -1,17 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Scope Tests</title>
 </head>
+
 <body>
-    <script>
+    <pre><script>
+
+/*
+        const id = x => x;
+        const fst = x => y => x;
+        const snd = fst(id);
+        document.writeln(id( id) === id);
+        document.writeln(fst(id)(fst) === id);
+        document.writeln(fst(id)("dvyv") === id);
+        document.writeln(fst(id)(23) === id);
+
+        const one = fst(1);
+        document.writeln(one(123) === 1);
+
+        document.writeln(snd(1)(1000) === 1000);
+        document.writeln(snd(2)("asdad") === "asdad");*/
 
 
+        function two(){
+            x = 2;
+            return x;
+        }()
+       // two();
 
-
-
+        try {
+            console.log(x);
+        } catch(e){
+            console.log(e);
+        }
     </script>
 </body>
-</html>
 
+</html>
