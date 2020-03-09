@@ -1,3 +1,7 @@
+const id = x => x;
+const fst = x => y => x;
+const snd = x => y => y;
+const M   = f => f (f);
 
 const id = x => x;
 // first argument

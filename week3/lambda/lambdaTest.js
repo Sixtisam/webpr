@@ -16,6 +16,9 @@ ok.push( konst(42)(null) === 42 );
 ok.push( snd(null)(42) === 42 );
 //
 // // true
+
+ok.push( T(1)(0) === 1 );
+ok.push( F(1)(0) === 0 );
 //
 ok.push( T(1)(0) === 1 );
 ok.push( F(1)(0) === 0 );
