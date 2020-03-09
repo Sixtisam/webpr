@@ -2,12 +2,13 @@
 const snakeOk = [];
 
 //  before start, snake is in start position
-    snakeOk.push(pairEq(snake[0]) (Pair(10)(5)));
+    snakeOk.push(pairEq(snake[0])(Pair(10)(5)));
 
 
 //  after one step, snake has moved up
     nextBoard();
-    snakeOk.push(pairEq(snake[0]) (Pair(10)(4)));
+    // console.log(snake[0]);
+    snakeOk.push(pairEq(snake[0])(Pair(10)(4)));
 
 //  before eating food, snake is of size 4
     snakeOk.push(snake.length === 4);
