@@ -16,7 +16,8 @@ let food = Pair(15)(15);
 const x = fst;
 const y = snd;
 // function snakeEquals(a, b) { return a.x === b.x && a.y === b.y }
-const pairEq = a => b => a(x) === b(x) && a(y) === b(y) // todo: your code here DONE
+const pairEq = a => b => a(x) === b(x) && a(y) === b(y); // todo: your code here DONE
+// const pairEq = a => b => a(fst) === b(fst) && a(snd) === b(snd); // todo: your code here
 
 // Pair + Pair = Pair        // Monoid
 const pairPlus = a => b => Pair(a(x) + b(x))(a(y) + b(y)); // todo: your code here DONE
@@ -36,7 +37,7 @@ function changeDirection(orientation) {
  */
 function safeGetElementById(id) {
   let result = document.getElementById(id);
-  if(result === undefined){
+  if (result === undefined) {
     return Left("Not found");
   } else {
     return Right(result);
@@ -47,9 +48,7 @@ const log = s => console.log(s);
 
 function start() {
   // todo: if safeGetElementById("canvas") yields an error message, log it. Otherwise startWithCanvas DONE
-  either(safeGetElementById("canvas"))
-    (alert)
-    (startWithCanvas);
+  either(safeGetElementById("canvas"))(alert)(startWithCanvas);
 }
 
 const startWithCanvas = canvas => {

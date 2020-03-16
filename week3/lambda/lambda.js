@@ -43,6 +43,10 @@ const either = id;
 const Left = value => f => g => f(value);
 const Right = value => f => g => g(value);
 
+const Left   = x => f => g => f(x);
+const Right  = x => f => g => g(x);
+const either = e => f => g => e(f)(g);
+
 // ----- special -----
 
 const Tuple = n => [

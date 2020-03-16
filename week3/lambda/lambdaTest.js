@@ -1,46 +1,45 @@
 // requires lambda.js
 
-
 let ok = [];
 
 // id
-ok.push( id(1) === 1 );
-ok.push( id(id) === id );
+ok.push(id(1) === 1);
+ok.push(id(id) === id);
 //
 // // konst
-ok.push( konst(42)(0) === 42 );
-ok.push( konst(42)(1) === 42 );
-ok.push( konst(42)(null) === 42 );
+ok.push(konst(42)(0) === 42);
+ok.push(konst(42)(1) === 42);
+ok.push(konst(42)(null) === 42);
 //
 // // kite
-ok.push( snd(null)(42) === 42 );
+ok.push(snd(null)(42) === 42);
 //
 // // true
 
-ok.push( T(1)(0) === 1 );
-ok.push( F(1)(0) === 0 );
+ok.push(T(1)(0) === 1);
+ok.push(F(1)(0) === 0);
 //
-ok.push( T(1)(0) === 1 );
-ok.push( F(1)(0) === 0 );
+ok.push(T(1)(0) === 1);
+ok.push(F(1)(0) === 0);
 //
 // // and
-ok.push( and(F)(F) === F );
-ok.push( and(T)(F) === F );
-ok.push( and(F)(T) === F );
-ok.push( and(T)(T) === T );
+ok.push(and(F)(F) === F);
+ok.push(and(T)(F) === F);
+ok.push(and(F)(T) === F);
+ok.push(and(T)(T) === T);
 //
 // // or
-ok.push( or(F)(F) === F );
-ok.push( or(T)(F) === T );
-ok.push( or(F)(T) === T );
-ok.push( or(T)(T) === T );
+ok.push(or(F)(F) === F);
+ok.push(or(T)(F) === T);
+ok.push(or(F)(T) === T);
+ok.push(or(T)(T) === T);
 //
 // // flip
 (() => {
-    const f = x => y => (x-y);
-    const x = Math.random();
-    const y = Math.random();
-    ok.push(flip(f)(x)(y) === f(y)(x));
+  const f = x => y => x - y;
+  const x = Math.random();
+  const y = Math.random();
+  ok.push(flip(f)(x)(y) === f(y)(x));
 })();
 //
 // // not
@@ -55,8 +54,8 @@ ok.push(beq(F)(F) == T);
 // // Pair
 //
 const dierk = Pair("Dierk")("König"); // immutable
-ok.push( dierk(firstname) === "Dierk");
-ok.push( dierk(lastname)  === "König");
+ok.push(dierk(firstname) === "Dierk");
+ok.push(dierk(lastname) === "König");
 //
 // const tdierk = Triple("Dierk")("König")(50); // immutable
 // ok.push( tdierk(tfirstname) === "Dierk");
@@ -80,23 +79,27 @@ ok.push( dierk(lastname)  === "König");
 // // Pair equal
 //
 // // either
-//
+
 const safeDiv = num => divisor =>
-    divisor === 0
-    ? Left("schlecht!")
-    : Right(num / divisor);
+  divisor === 0 ? Left("schlecht!") : Right(num / divisor);
 //
-either( safeDiv(1)(0)  )
-      (console.error)
-      (console.log);
+
+either(safeDiv(1)(0))(console.error)(console.log);
 
 ok.push(either(safeDiv(1)(0))(() => true)(() => false));
 ok.push(either(safeDiv(1)(1))(() => false)(() => true));
 ok.push(either(safeDiv(0)(1))(() => false)(() => true));
 
-console.log('the result is', either(safeDiv(0)(0))(() => false))
-console.log(either(safeDiv(0)(1))(id)(r => ("Result is: " + r)));
-//
+console.log(
+  "the result is",
+  either(safeDiv(0)(0))(() => false)
+);
+console.log(either(safeDiv(0)(1))(id)(r => "Result is: " + r));
+
+either(safeDiv(1)(1))(errormsg => console.error(errormsg))(result =>
+  console.log(result)
+);
+
 //
 // const [Cash, CreditCard, Invoice, PayPal, pay] = Choice(4);
 // const cash = Cash ();
@@ -115,19 +118,16 @@ console.log(either(safeDiv(0)(1))(id)(r => ("Result is: " + r)));
 // ok.push( doPay(invo) === "Roger 4711");
 // ok.push( doPay(pal ) === "pal: Dierk");
 
-
-
-
 // test result report
-if ( ok.every( elem => elem) ) {
-    document.writeln("All "+ ok.length +" tests ok.");
+if (ok.every(elem => elem)) {
+  document.writeln("All " + ok.length + " tests ok.");
 } else {
-    document.writeln("Not all tests ok! Details:");
-    for (let i = 0; i<ok.length; i++) {
-        if(ok[i]) {
-            document.writeln("Test "+ i +" ok");
-        } else {
-            document.writeln("Test "+ i +" failed");
-        }
+  document.writeln("Not all tests ok! Details:");
+  for (let i = 0; i < ok.length; i++) {
+    if (ok[i]) {
+      document.writeln("Test " + i + " ok");
+    } else {
+      document.writeln("Test " + i + " failed");
     }
+  }
 }
