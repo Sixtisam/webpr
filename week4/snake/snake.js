@@ -36,13 +36,20 @@ function changeDirection(orientation) {
  */
 function safeGetElementById(id) {
   let result = document.getElementById(id);
-  return result === undefined; // todo: your code here
+  if(result === undefined){
+    return Left("Not found");
+  } else {
+    return Right(result);
+  }
 }
 
 const log = s => console.log(s);
 
 function start() {
-  // todo: if safeGetElementById("canvas") yields an error message, log it. Otherwise startWithCanvas
+  // todo: if safeGetElementById("canvas") yields an error message, log it. Otherwise startWithCanvas DONE
+  either(safeGetElementById("canvas"))
+    (alert)
+    (startWithCanvas);
 }
 
 const startWithCanvas = canvas => {
@@ -77,7 +84,7 @@ function nextBoard() {
 
   // const newHead = Pair(oldHead(x) + direction(x))(oldHead(y) + direction(y)); // todo: your code here: old head plus direction DONE
   const newHead = pairPlus(oldHead)(direction); // todo: your code here: old head plus direction DONE
-  const head = pairMap(inBounds(400))(newHead); // todo: your code here: new head put in bounds DONE
+  const head = pairMap(inBounds(400 / 20))(newHead); // todo: your code here: new head put in bounds DONE
 
   const pickRandom = () => Math.floor(Math.random() * max);
   if (pairEq(head)(food)) {
@@ -106,5 +113,7 @@ function display(context) {
 }
 
 function fillBox(context, element) {
-  context.fillRect(fst(element) * 20 + 1, snd(element) * 20 + 1, 18, 18);
+  context.fillRect(element(fst) * 20 + 1, element(snd) * 20 + 1, 18, 18);
 }
+
+start();
