@@ -6,11 +6,15 @@
   </head>
   <body>
     <script>
-      const tests = ["function", "lambda", "snake"];
+      const testNames = ["function", "lambda", "snake"];
 
-      tests.forEach(test => {
-        document.writeln(`<script src="${test}/${test}.js"></` + `script>`);
-        document.writeln(`<script src="${test}/${test}Test.js"></` + `script>`);
+      testNames.forEach(testName => {
+        document.writeln(
+          `<script src="${testName}/${testName}.js"><` + "/script>"
+        );
+        document.writeln(
+          `<script src="${testName}/${testName}Test.js"><` + "/script>"
+        );
       });
     </script>
   </body>

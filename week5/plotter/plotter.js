@@ -8,15 +8,9 @@ function start() {
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
 
-  const update = () => {
-    const f = Function("x", "return " + userFunction.value);
-    display(context, f);
-  };
-  // todo: how to display?
-  userFunction.onchange = () => {
-    update();
-  };
-  update();
+  display(context, x => eval(userFunction.value));
+  userFunction.onchange = text =>
+    display(context, x => eval(userFunction.value));
 }
 
 function display(context, f) {
