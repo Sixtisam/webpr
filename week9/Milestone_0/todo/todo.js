@@ -1,31 +1,29 @@
-
 let todoContainer = null;
 let numberOfTasks = null;
 let openTasks = null;
 
 function startTodo(newTodoContainer, newNumberOfTasks, newOpenTasks) {
-    todoContainer = newTodoContainer;
-    numberOfTasks = newNumberOfTasks;
-    openTasks     = newOpenTasks;
+  todoContainer = newTodoContainer;
+  numberOfTasks = newNumberOfTasks;
+  openTasks = newOpenTasks;
 }
 
 function addTodo() {
+  const inputElement = document.createElement("INPUT");
+  inputElement.setAttribute("TYPE", "TEXT");
+  inputElement.setAttribute("SIZE", "30");
 
-    const inputElement = document.createElement('INPUT');
-    inputElement.setAttribute("TYPE","TEXT");
-    inputElement.setAttribute("SIZE","42");
+  const checkboxElement = document.createElement("INPUT");
+  checkboxElement.setAttribute("TYPE", "CHECKBOX");
 
-    const checkboxElement = document.createElement('INPUT');
-    checkboxElement.setAttribute("TYPE", "CHECKBOX");
+  checkboxElement.onclick = (_) => {
+    openTasks.innerText =
+      Number(openTasks.innerText) + (checkboxElement.checked ? -1 : 1);
+  };
 
-    checkboxElement.onclick = _ => {
-        openTasks.innerText = Number(openTasks.innerText) + (checkboxElement.checked ? -1 : 1);
-    };
+  todoContainer.appendChild(inputElement);
+  todoContainer.appendChild(checkboxElement);
 
-    todoContainer.appendChild(inputElement);
-    todoContainer.appendChild(checkboxElement);
-
-    numberOfTasks.innerText = Number(numberOfTasks.innerText) + 1;
-    openTasks.innerText     = Number(openTasks.innerText) + 1;
-
+  numberOfTasks.innerText = Number(numberOfTasks.innerText) + 1;
+  openTasks.innerText = Number(openTasks.innerText) + 1;
 }
