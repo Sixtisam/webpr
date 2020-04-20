@@ -3,14 +3,18 @@
 // find a solution for suite, test, assert
 
 const Assert = () => {
-  const ok = [];
-  const equals = (actual, expected) => {
-    const result = actual === expected;
-    if (!result) {
-      console.error(
-        `not equal! actual was '${actual}' but expected '${expected}'`
-      );
-      debugger;
+    const ok = [];
+    const equals = (actual, expected) => {
+        const result = (actual === expected);
+        if (! result) {
+           console.error(`not equal! actual was '${actual}' but expected '${expected}'`);
+           debugger
+        }
+        ok.push(result);
+    };
+    return {
+        getOk: () => ok,
+        equals: equals,
     }
     ok.push(result);
   };
@@ -97,9 +101,9 @@ function padLeft(str, extend) {
 }
 
 function fill(str, extend) {
-  const len = str.toString().length; // in case str is not a string
-  if (len > extend) {
-    return str;
-  }
-  return " ".repeat(extend - len);
+    const len = str.toString().length; // in case str is not a string
+    if (len > extend) {
+        return str;
+    }
+    return " ".repeat(extend - len);
 }
