@@ -1,6 +1,6 @@
 let todoContainer = null;
 let numberOfTasks = null;
-let openTasks = null;
+let openTasks     = null;
 
 function startTodo(newTodoContainer, newNumberOfTasks, newOpenTasks) {
   todoContainer = newTodoContainer;
