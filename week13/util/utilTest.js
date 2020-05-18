@@ -1,28 +1,29 @@
 // requires util.js
 
+import { Suite } from "./test.js";
+import "./util.js";
+
 const util = Suite("util");
 
 // extending the prototype of many objects
-util.test("times-num", assert => {
+util.test("times-num", (assert) => {
+  const collect = [];
 
-    const collect = [];
+  (10).times((n) => collect.push(n));
 
-    (10).times( n => collect.push(n) );
-
-    assert.is(collect.length, 10);
-    assert.is(collect[0], 0);
-    assert.is(collect[9], 9);
-
+  assert.is(collect.length, 10);
+  assert.is(collect[0], 0);
+  assert.is(collect[9], 9);
 });
 
-util.test("times-str", assert => {
+util.test("times-str", (assert) => {
+  const collect = [];
 
-    const collect = [];
+  "10".times((n) => collect.push(n));
 
-    '10'.times( n => collect.push(n) );
-
-    assert.is(collect.length, 10);
-    assert.is(collect[0], 0);
-    assert.is(collect[9], 9);
-
+  assert.is(collect.length, 10);
+  assert.is(collect[0], 0);
+  assert.is(collect[9], 9);
 });
+
+util.run();
