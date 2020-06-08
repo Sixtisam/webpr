@@ -1,4 +1,3 @@
-// todo: make bad/naive implementation correct
 // execute asynchronous tasks in strict sequence, aka "reactive stream", "flux architecture"
 export const Scheduler = () => {
   let inProcess = false;
